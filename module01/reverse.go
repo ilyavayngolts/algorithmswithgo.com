@@ -1,6 +1,9 @@
 package module01
 
-import "strings"
+import (
+	"strings"
+	"unicode/utf8"
+)
 
 // Reverse will return the provided word in reverse
 // order. Eg:
@@ -9,8 +12,10 @@ import "strings"
 //	Reverse("alphabet") => "tebahpla"
 func Reverse(word string) string {
 	var reversedStringBuilder strings.Builder
-	for i := len(word) - 1; i >= 0; i-- {
-		reversedStringBuilder.WriteByte(word[i])
+	for i, w := len(word), 0; i > 0; i -= w {
+		var r rune
+		r, w = utf8.DecodeLastRuneInString(word[:i])
+		reversedStringBuilder.WriteRune(r)
 	}
 
 	return reversedStringBuilder.String()
