@@ -11,16 +11,30 @@ package module01
 //
 // Examples:
 //
-//   Factor([]int{2,3,5}, 30) // []int{2,3,5}
-//   Factor([]int{2,3,5}, 28) // []int{2,2,7}
-//   Factor([]int{2,3,5}, 720) // []int{2,2,2,2,3,3,5}
+//	Factor([]int{2,3,5}, 30) // []int{2,3,5}
+//	Factor([]int{2,3,5}, 28) // []int{2,2,7}
+//	Factor([]int{2,3,5}, 720) // []int{2,2,2,2,3,3,5}
 //
 // Examples with remainders:
 //
-//   Factor([2,5], 30) // []int{2,5,3}
-//   Factor([3,5], 720) // []int{3,3,5,16}
-//   Factor([], 4) // []int{4}
-//
+//	Factor([2,5], 30) // []int{2,5,3}
+//	Factor([3,5], 720) // []int{3,3,5,16}
+//	Factor([], 4) // []int{4}
 func Factor(primes []int, number int) []int {
-	return nil
+	var res []int
+	for _, v := range primes {
+		for number%v == 0 {
+			res = append(res, v)
+			number /= v
+			if number == 1 {
+				return res
+			}
+		}
+	}
+
+	if number > 1 {
+		res = append(res, number)
+	}
+
+	return res
 }
